@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">OMDB Search</string>
+    <string name="search_hint">search</string>
+    <string name="add_to_favorite">Add to My Favorite</string>
+    <string name="progress_loading">Loading. Please wait...</string>
+    <string name="show_favorite_movie">Show Favorite list</string>
+    <string name="title_activity_favorite_movies">Favorite Movies</string>
+    <string name="send_to">Share with</string>
+    <string name="no_apps_found">No application is responding to action</string>
+    <string name="title_activity_movie_search">Movie Search</string>
+    <string name="title_activity_search_acitivity"> Movies Search</string>
+    <string name="developer_name">Abeer Alkhars</string>
+    <string name="title_activity_search">Search</string>
+    <string name="title_not_specificed">Movie title is a required parameter!</string>
+    <string name="movie_is_saved">The movie is already saved!</string>
+
+</resources>
