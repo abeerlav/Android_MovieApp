@@ -313,7 +313,11 @@ button to share the poster with other apps
 
 
 
-
+       if(movie.getImage().equals("N/A"))
+       { poster.setImageResource(getResources().getIdentifier("drawable/not_available"
+             , null,getPackageName()));
+         progressBar.setVisibility(View.GONE);}
+        else
         ImageLoader.getInstance().displayImage(movie.getImage(), poster, new ImageLoadingListener() {
             @Override
             public void onLoadingStarted(String imageUri, View view) {

@@ -126,7 +126,11 @@ public class FavoriteMoviesActivity extends AppCompatActivity {
 
                     }
                 });
-
+                if(image.equals("N/A"))
+                { imageView.setImageResource(getResources().getIdentifier("drawable/not_available"
+                        , null,getPackageName()));
+                    progressBar.setVisibility(View.GONE);}
+                else
                 ImageLoader.getInstance().displayImage(image, imageView, new ImageLoadingListener() {
                     @Override
                     public void onLoadingStarted(String imageUri, View view) {
