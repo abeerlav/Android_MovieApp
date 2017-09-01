@@ -10,12 +10,12 @@ import a2dv606_aa223de.movieapp.Model.MovieModel;
 
 /**
  * Created by Abeer on 8/11/2017.
- * Parser class allows parsing  String objects.
+ * JsonParser class allows parsing  String objects.
  */
 
-public class Parser {
+public class JsonParser {
 
-    public Parser() {
+    public JsonParser() {
     }
       /*
       parse json object
@@ -41,24 +41,7 @@ public class Parser {
             return movie;
 
     }
-    /*
-    parse query string
-     */
-    public String findQueryParams(String text) {
-        System.out.println(text+ " "+text.length());
-        String[] params= text.split(" ");
-        if(params.length==1)
-            return params[0];
 
-        StringBuilder builder = new StringBuilder();
-
-        for (int x=0; x<params.length-1 ; x++){
-            builder.append(params[x]+"+");}
-        if(params.length-1>0)
-            builder.append(params[params.length-1]);
-        return builder.toString();
-
-    }
 
 
 }

@@ -12,8 +12,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,9 +35,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +68,6 @@ public class SearchActivity extends AppCompatActivity {
     private ArrayList<MovieModel> movies;
     private SearchView searchView;
     private LinearLayout layout ;
-    private Parser parser;
     private boolean isSavedFlag= false;
     private ProgressDialog dialog;
     private Button searchButton;
@@ -94,7 +93,6 @@ public class SearchActivity extends AppCompatActivity {
         db = new MovieDataSource(getApplicationContext());
         db.open();
         movies = db.getAllMovies();
-        parser = new Parser();
         initLoadingDialog();
         searchButton = (Button) findViewById(R.id.search_butto);
         titleEd = (EditText)findViewById(R.id.title_editview);
@@ -113,7 +111,12 @@ public class SearchActivity extends AppCompatActivity {
                 // checking if the title is not empty
                 if(!title.isEmpty()){
                     // adding the query params to the url
-                    String titleQuery=  parser.findQueryParams(title);
+                    String titleQuery= null;
+                    try {
+                        titleQuery = URLEncoder.encode(title, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
                     String url =OMDB_URL+TITLE_PARAM+titleQuery+"&"+YEAR_PARA+year;
                     // executing data request in the background
 
@@ -183,7 +186,7 @@ public class SearchActivity extends AppCompatActivity {
                 String data= buffer.toString();
                 try {
 
-                    movieModel =  new Parser().parseJsonObject(data);
+                    movieModel =  new JsonParser().parseJsonObject(data);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -227,14 +230,14 @@ public class SearchActivity extends AppCompatActivity {
             dialog.dismiss();
             // making sure that the data has received
             if(result!=null)
-                displayMovieDate(result);
+                displayMovieData(result);
             else
                 Toast.makeText(getApplicationContext(),"Movie not found",Toast.LENGTH_LONG).show();
 
         }
     }
 
-    private void displayMovieDate(final MovieModel movie) {
+    private void displayMovieData(final MovieModel movie) {
         // displaying the poster in the layout
         LinearLayout layout = (LinearLayout) findViewById(R.id.layout_view);
         layout.setVisibility(View.VISIBLE);

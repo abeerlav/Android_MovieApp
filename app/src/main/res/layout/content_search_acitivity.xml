@@ -40,7 +40,7 @@
         android:drawablePadding="16dp"
         android:drawableTint="@android:color/white"
         android:hint="Year"
-        android:inputType="text"
+        android:inputType="number"
         android:minLines="1"
         android:padding="10dp"
         android:textColor="@android:color/white"
