@@ -13,5 +13,6 @@
     <string name="title_activity_search">Search</string>
     <string name="title_not_specificed">Movie title is a required parameter!</string>
     <string name="movie_is_saved">The movie is already saved!</string>
+    <string name="InternetConnectionNotAvailable">Cannot connect to the internet</string>
 
 </resources>

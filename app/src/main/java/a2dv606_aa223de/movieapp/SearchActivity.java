@@ -1,10 +1,13 @@
 package a2dv606_aa223de.movieapp;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -119,8 +122,10 @@ public class SearchActivity extends AppCompatActivity {
                     }
                     String url =OMDB_URL+TITLE_PARAM+titleQuery+"&"+YEAR_PARA+year;
                     // executing data request in the background
-
-                    new JsonTask().execute((url));
+                     if(checkNetWorkConnection())
+                        new JsonTask().execute((url));
+                    else Toast.makeText(getApplicationContext(), getResources().getString(R.string.InternetConnectionNotAvailable),
+                             Toast.LENGTH_SHORT).show();
                 }
                  else{Toast.makeText(getApplicationContext(), getResources().getString(R.string.title_not_specificed),
                         Toast.LENGTH_SHORT).show();}
@@ -150,6 +155,15 @@ public class SearchActivity extends AppCompatActivity {
 
 
     }
+
+    private boolean checkNetWorkConnection() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            return networkInfo != null && networkInfo.isConnectedOrConnecting()&&networkInfo.isConnected();
+        }
+
+
 
     private void initLoadingDialog() {
         dialog = new ProgressDialog(this);
